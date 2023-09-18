@@ -1,1 +1,1 @@
-puts "Hello User"
+puts 'Hello User'
