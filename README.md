@@ -83,8 +83,6 @@ To run the project, execute the following command:
 - Twitter: [@Devendra5101](https://twitter.com/Devendra5101)
 - LinkedIn: [Devendra Mulewa](https://linkedin.com/in/devendramulewa)
 
-👤 **Bleu Yves Sopoude (MrBlue)**
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- FUTURE FEATURES -->
