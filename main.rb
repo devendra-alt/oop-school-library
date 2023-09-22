@@ -12,4 +12,4 @@ def main
   puts capitalized_trimmed_person.correct_name
 end
 
-main()
+main
