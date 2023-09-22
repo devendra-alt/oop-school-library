@@ -2,7 +2,6 @@ require_relative 'school/person'
 require_relative 'school/capitalize_decorator'
 require_relative 'school/trimmer_decorator'
 
-
 def main
   person = Person.new(22, 'maximilianus')
   person.correct_name
