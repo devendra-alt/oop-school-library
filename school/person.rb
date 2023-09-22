@@ -20,8 +20,8 @@ class Person < NameAble
 
   public
 
-  def add_rental(rental)
-    @rental = rental
+  def add_rental(date,book)
+    Rental.new(date,book)
   end
 
   def can_use_services?
