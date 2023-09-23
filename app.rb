@@ -109,7 +109,7 @@ class App
     return unless choose_person.length.positive?
 
     @rentals.each do |rental|
-      if (rental.person = choose_person)
+      if (rental.person != choose_person)
         puts "Date : #{rental.date}, Book : #{rental.book.title}, by #{rental.book.author}"
       end
     end
