@@ -1,3 +1,4 @@
+require_relative 'rental'
 require_relative 'nameable'
 class Person < NameAble
   attr_accessor :name, :parent_permission, :age, :classroom, :rentals
