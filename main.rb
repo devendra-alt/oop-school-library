@@ -106,15 +106,14 @@ class Main
     end
     puts 'Rentals: '
     p choose_person
-    if choose_person.length>0 
-      choose_person.rentals.each do |rental|
-        puts "Date : #{rental.date}, Book : #{rental.book.title}, by #{rental.book.author}"
-      end
+    return unless choose_person.length.positive?
+
+    choose_person.rentals.each do |rental|
+      puts "Date : #{rental.date}, Book : #{rental.book.title}, by #{rental.book.author}"
     end
   end
 end
 
 
-main = Main.new()
-
+main = Main.new
 main.start
