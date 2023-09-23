@@ -23,6 +23,10 @@ class Main
       create_person
     when 4
       add_book
+    when 5
+      create_rental
+    when 6
+      list_rentals
     end
   end
 
@@ -43,7 +47,7 @@ class Main
   end
 
   def list_books
-    @book.each_with_index do |book, index|
+    @books.each_with_index do |book, index|
       puts "#{index} Title : #{book.title}, Author : #{book.author}"
     end
   end
@@ -77,14 +81,14 @@ class Main
     title = gets.chomp.strip
     print 'Author: '
     author = gets.chomp.strip
-    @book << Book.new(title, author)
+    @books << Book.new(title, author)
   end
 
   def create_rental
     puts 'Select a book from the following list by number [not id]'
     list_books
     book_choice = gets.chomp.to_i
-    book = @book[book_choice]
+    book = @books[book_choice]
     puts 'Select a person from the following list by number [not id]'
     list_people
     person_choice = gets.chomp.to_i
@@ -101,13 +105,16 @@ class Main
       return person if person.id == id
     end
     puts 'Rentals: '
-    choose_person.rentals.each do |rental|
-      puts "Date : #{rental.date}, Book : #{rental.book.title}, by #{rental.book.author}"
+    p choose_person
+    if choose_person.length>0 
+      choose_person.rentals.each do |rental|
+        puts "Date : #{rental.date}, Book : #{rental.book.title}, by #{rental.book.author}"
+      end
     end
   end
 end
 
 
-main = Main.new
+main = Main.new()
 
 main.start
