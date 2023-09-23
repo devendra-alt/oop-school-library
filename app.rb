@@ -11,6 +11,7 @@ class App
     @books = []
     @people = []
     @rentals = []
+    @classroom = ClassRoom.new('my-classroom')
   end
 
   def case_method(user_input)
@@ -68,7 +69,7 @@ class App
     if user_type == 1
       print 'Has parent permission? [Y/N]: '
       permission = gets.chomp.strip.upcase == 'Y'
-      @people << Student.new(age, name, permission)
+      @people << Student.new(age, @classroom, permission, name)
     else
       print 'Specialization: '
       specialization = gets.chomp.strip
