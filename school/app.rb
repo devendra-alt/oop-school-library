@@ -5,7 +5,6 @@ require_relative 'teacher'
 require_relative 'book'
 require_relative 'capitalize_decorator'
 require_relative 'trimmer_decorator'
-require 'pry'
 class App
   def initialize
     @books = []
@@ -15,8 +14,8 @@ class App
   end
 
   def list_books
-    if @book.length==0
-      puts "book list is empty"
+    if @book.empty?
+      puts 'book list is empty'
       return
     end
     @books.each_with_index do |book, index|
@@ -25,9 +24,8 @@ class App
   end
 
   def list_people
-    binding.pry
-    if @people.length==0
-      puts "people list is empty"
+    if @people.empty?
+      puts 'people list is empty'
       return
     end
     @people.each_with_index do |person, index|
@@ -46,12 +44,12 @@ class App
       print 'Has parent permission? [Y/N]: '
       permission = gets.chomp.strip.upcase == 'Y'
       @people << Student.new(age, @classroom, permission, name)
-      puts "Student created succefully"
+      puts 'Student created succefully'
     else
       print 'Specialization: '
       specialization = gets.chomp.strip
       @people << Teacher.new(age, specialization, name)
-      puts "Teacher created succefully"
+      puts 'Teacher created succefully'
     end
   end
 
@@ -61,7 +59,7 @@ class App
     print 'Author: '
     author = gets.chomp.strip
     @books << Book.new(title, author)
-    puts "Added book succesfully"
+    puts 'Added book succesfully'
   end
 
   def create_rental
@@ -76,29 +74,27 @@ class App
     print 'Enter date of booking [yyyy/mm/dd] : '
     date = gets.chomp.strip
     @rentals << person.add_rental(date, book)
-    binding.pry
-    puts "Created rental successfully"
+    puts 'Created rental successfully'
   end
 
-  def find_person_by_id id
-    choose_person = @people.find do |person|
+  def find_person_by_id(id)
+    @people.find do |person|
       person.id == id
     end
-    return choose_person
   end
 
   def list_rentals
     print 'ID of person : '
     id = gets.chomp.to_i
-    if find_person_by_id(id) == nil
-      puts "No person data found!"
+    if find_person_by_id(id).nil?
+      puts 'No person data found!'
       return
     end
     rental_answer = @rentals.find do |rental|
-    rental.person == choose_person
+      rental.person == choose_person
     end
-    if rental_answer==nil
-      puts "No rental data found"
+    if rental_answer.nil?
+      puts 'No rental data found'
       return
     end
     puts 'Rentals: '

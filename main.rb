@@ -1,7 +1,15 @@
 require_relative 'school/app'
-
 class Main
-  attr_reader :app
+  APP_OPERATION_MAP = {
+    1 => :list_books,
+    2 => :list_people,
+    3 => :create_person,
+    4 => :add_book,
+    5 => :create_rental,
+    6 => :list_rentals
+  }.freeze
+  attr_accessor :app
+
   def initialize
     @app = App.new
   end
@@ -24,20 +32,10 @@ class Main
 
   def case_method(user_input)
     case user_input
-    when 1
-      @app.list_books
-    when 2
-      @app.list_people
-    when 3
-      @app.create_person
-    when 4
-      @app.add_book
-    when 5
-      @app.create_rental
-    when 6
-      @app.list_rentals
+    when APP_OPERATION_MAP.key?(user_input)
+      @app.APP_OPERATION_MAP[user_input]
     when 7
-      puts "Thank you for using our application"
+      puts 'Thank you for using our application'
     else
       puts 'invalid input!'
     end
