@@ -3,10 +3,9 @@ class Rental
 
   def initialize(date, book, person)
     @date = date
+    book.rentals << self
     @book = book
-    @book.rentals << self
-
+    person.rentals << self
     @person = person
-    @book.rentals << self
   end
 end
