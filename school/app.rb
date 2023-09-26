@@ -1,11 +1,11 @@
-require_relative 'school/classroom'
-require_relative 'school/person'
-require_relative 'school/student'
-require_relative 'school/teacher'
-require_relative 'school/book'
-require_relative 'school/capitalize_decorator'
-require_relative 'school/trimmer_decorator'
-
+require_relative 'classroom'
+require_relative 'person'
+require_relative 'student'
+require_relative 'teacher'
+require_relative 'book'
+require_relative 'capitalize_decorator'
+require_relative 'trimmer_decorator'
+require 'pry'
 class App
   def initialize
     @books = []
@@ -14,46 +14,22 @@ class App
     @classroom = ClassRoom.new('my-classroom')
   end
 
-  def case_method(user_input)
-    case user_input
-    when 1
-      list_books
-    when 2
-      list_people
-    when 3
-      create_person
-    when 4
-      add_book
-    when 5
-      create_rental
-    when 6
-      list_rentals
-    end
-  end
-
-  def start
-    user_input = 0
-    while user_input != 7
-      puts 'Please choose an option by entering a number:'
-      puts '1 - List all books'
-      puts '2 - List all people'
-      puts '3 - Create a person'
-      puts '4 - Create a book'
-      puts '5 - Create a rental'
-      puts '6 - List all rentals for a given person id'
-      puts '7 - Exit'
-      user_input = gets.chomp.strip.to_i
-      case_method(user_input)
-    end
-  end
-
   def list_books
+    if @book.length==0
+      puts "book list is empty"
+      return
+    end
     @books.each_with_index do |book, index|
       puts "#{index} Title : #{book.title}, Author : #{book.author}"
     end
   end
 
   def list_people
+    binding.pry
+    if @people.length==0
+      puts "people list is empty"
+      return
+    end
     @people.each_with_index do |person, index|
       puts "#{index} [#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
     end
@@ -70,10 +46,12 @@ class App
       print 'Has parent permission? [Y/N]: '
       permission = gets.chomp.strip.upcase == 'Y'
       @people << Student.new(age, @classroom, permission, name)
+      puts "Student created succefully"
     else
       print 'Specialization: '
       specialization = gets.chomp.strip
       @people << Teacher.new(age, specialization, name)
+      puts "Teacher created succefully"
     end
   end
 
@@ -83,6 +61,7 @@ class App
     print 'Author: '
     author = gets.chomp.strip
     @books << Book.new(title, author)
+    puts "Added book succesfully"
   end
 
   def create_rental
@@ -97,21 +76,32 @@ class App
     print 'Enter date of booking [yyyy/mm/dd] : '
     date = gets.chomp.strip
     @rentals << person.add_rental(date, book)
+    binding.pry
+    puts "Created rental successfully"
+  end
+
+  def find_person_by_id id
+    choose_person = @people.find do |person|
+      person.id == id
+    end
+    return choose_person
   end
 
   def list_rentals
     print 'ID of person : '
     id = gets.chomp.to_i
-    choose_person = @people.each do |person|
-      return person if person.id == id
+    if find_person_by_id(id) == nil
+      puts "No person data found!"
+      return
+    end
+    rental_answer = @rentals.find do |rental|
+    rental.person == choose_person
+    end
+    if rental_answer==nil
+      puts "No rental data found"
+      return
     end
     puts 'Rentals: '
-    return unless choose_person.length.positive?
-
-    @rentals.each do |rental|
-      if (rental.person != choose_person)
-        puts "Date : #{rental.date}, Book : #{rental.book.title}, by #{rental.book.author}"
-      end
-    end
+    puts "Date : #{rental_answer.date}, Book : #{rental_answer.book.title}, by #{rental_answer.book.author}"
   end
 end
